@@ -19,19 +19,6 @@ public class Driver {
 			e.printStackTrace();
 		}
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 		try {
 			System.out.println(conn.isClosed());
 		} catch (SQLException e) {
@@ -61,6 +48,9 @@ public class Driver {
 				System.out.println("Answer is: " + rs.getString(3));
 				
 			}
+			
+			stmt.close();
+			conn.close();
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

@@ -1,11 +1,12 @@
 package com.revature.jdbc.dao;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
 import com.revature.jdbc.pojo.FlashCard;
+import com.revature.jdbc.util.ConnectionFactory;
 
 public class FlashCardDaoImpl implements FlashCardDao{
 	
@@ -13,7 +14,7 @@ public class FlashCardDaoImpl implements FlashCardDao{
 	
 	public void setup(){
 		
-		conn = DriverManager.getConnection(url, user, password);
+		conn = ConnectionFactory.getInstance().getConnection();
 		
 	}
 	
@@ -32,7 +33,12 @@ public class FlashCardDaoImpl implements FlashCardDao{
 	@Override
 	public int saveFlashCard(FlashCard fc) throws SQLException{
 		// TODO Auto-generated method stub
-		return 0;
+		String sql = "insert into flash cards(fc_question, fc_answer) values(?, ?)";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, fc.getFC_QUESTION());
+		pstmt.setString(2, fc.getFC_ANSWER());
+		return pstmt.executeUpdate();
+	
 	}
 
 	@Override
