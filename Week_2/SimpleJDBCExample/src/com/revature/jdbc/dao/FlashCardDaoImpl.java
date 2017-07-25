@@ -2,7 +2,9 @@ package com.revature.jdbc.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Savepoint;
 import java.util.List;
 
 import com.revature.jdbc.pojo.FlashCard;
@@ -33,11 +35,34 @@ public class FlashCardDaoImpl implements FlashCardDao{
 	@Override
 	public int saveFlashCard(FlashCard fc) throws SQLException{
 		// TODO Auto-generated method stub
+		
+		conn.setAutoCommit(false);
+		
 		String sql = "insert into flash cards(fc_question, fc_answer) values(?, ?)";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, fc.getFC_QUESTION());
 		pstmt.setString(2, fc.getFC_ANSWER());
-		return pstmt.executeUpdate();
+		
+		Savepoint s = conn.setSavepoint();
+		
+		int num = pstmt.executeUpdate();
+		
+		ResultSet rs = pstmt.getGeneratedKeys();
+		
+		if (num > 1){
+			
+			conn.rollback(s);
+			
+		}
+		
+		conn.commit();
+		
+		conn.setAutoCommit(true);
+		
+		rs.next();
+		
+		return rs.getInt(1);
+		
 	
 	}
 
