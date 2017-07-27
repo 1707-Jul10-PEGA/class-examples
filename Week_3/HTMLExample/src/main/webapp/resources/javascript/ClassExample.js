@@ -46,19 +46,19 @@ i();
 
 // console.log(functionScope);
 
-a = b;
-a = c;
-a = d;
-a = e;
-a = g;
-a = h;
-a = i;
+a = b
+a = c
+a = d
+a = e
+a = g
+a = h
+a = i
 
 var checkTrue = function(d) {
 
 	if (d) {
 
-		console.log(d + " is true");
+		console.log(d + " is true")
 
 	}
 
@@ -119,7 +119,7 @@ function sumNum(x, y, z){
 
 	const blockConst = "Hi";
 	
-	blockConst = "Bye";
+	//blockConst = "Bye";
 	
 	let blockScope = 10;
 	
@@ -127,7 +127,7 @@ function sumNum(x, y, z){
 	
 }
 
-console.log(blockScope);
+//console.log(blockScope);
 
 function sumNum(){
 	
@@ -141,6 +141,11 @@ function sumNum(){
 		
 	}
 	console.log(temp);
+	
+	return 
+	
+	"this is the number you were looking for"
+				+ temp;
 	
 }
 
